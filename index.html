@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Weather</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .weather-intro-div {
+            height: 100vh;
+            background: url('images/background-image-for-weather-app.jpg') center center/cover no-repeat;
+        }
+
+        .weather-info-div {
+            /* background: url('images/sun-bg.gif') center center/cover no-repeat; */
+            /* color: white; */
+            height: 100vh;
+            display: none;
+        }
+
+        /* .weather-info-div:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, .5);
+        } */
+
+        .thunderstorm {
+            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            color: white;
+        }
+
+        .drizzle {
+            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            color: white;
+        }
+
+        .rainy {
+            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            color: black;
+        }
+
+        .snow {
+            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            color: white;
+        }
+
+        .clear {
+            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            color: white;
+        }
+
+        .clouds {
+            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="weather-intro-div">
+        <div class="container py-5">
+            <div>
+                <h1>
+                    Check today's weather forecast.
+                </h1>
+            </div>
+            <div>
+                <form action="">
+                    <label for="name-input">
+                        <input type="text" name="name" id="name-input" placeholder="Input your name" value="vee">
+                    </label>
+                    <label for="location-input">
+                        Location:
+                        <input type="text" name="location" id="location-input" placeholder="Input your location"
+                            value="uyo">
+                    </label>
+                    <label for="submit">
+                        <input type="submit" value="Get Weather Info" class="btn btn-primary">
+                    </label>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="weather-info-div">
+        <div class="h-100 d-flex flex-column justify-content-between">
+            <div class="container py-4">
+                <div class="d-flex justify-content-end">
+                    <p id="time"></p>
+                </div>
+                <div>
+                    <h2>Hello, <span id="name"></span>.</h2>
+                    <p>Your weather forecast for <span id="date"></span> is</p>
+                </div>
+                <div>
+                    <p id="location"></p>
+                    <div class="d-flex">
+                        <div>
+                            <p><span id="temperature"></span> &deg; C</p>
+                            <p id="temperature-desc"></p>
+                        </div>
+                        <div>
+                            <img id="weather-icon" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p>Humidity: <span id="humidity"></span></p>
+                    <p>Wind: <span id="wind"></span></p>
+                </div>
+                <div>
+                    <p id="weather-note"></p>
+                </div>
+            </div>
+            <div class="justify-content-center py-4 text-center d-flex align-items-end">
+                <div class="container">
+                    <p class="text-center">veedah || 2020</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="moment.js"></script>
+    <script>
+
+        function get(element) {
+            return document.getElementById(element)
+        }
+        const form = document.querySelector('form'),
+            weatherIntroDiv = document.querySelector('.weather-intro-div'),
+            weatherInfoDiv = document.querySelector('.weather-info-div'),
+            // nameInput = document.getElementById('name-input'), 
+            nameInput = get('name-input'),
+            weatherIcon = get('weather-icon'),
+            time = get('time'),
+            locationInput = document.getElementById('location-input'),
+            name = document.getElementById('name'),
+            date = document.getElementById('date'),
+            locationName = document.getElementById('location'),
+            temperature = document.getElementById('temperature'),
+            temperatureDesc = document.getElementById('temperature-desc'),
+            humidity = document.getElementById('humidity'),
+            wind = document.getElementById('wind'),
+            weatherNote = document.getElementById('weather-note');
+        // http://openweathermap.org/img/wn/10d@2x.png
+
+
+        function repeat() {
+            date.innerHTML = moment().format('MMMM Do YYYY');
+            time.innerHTML = moment().format('h:mm:ss a');
+        }
+
+        // to keep running repeat func after 1s
+        setInterval(repeat, 1000);
+
+        function getWeatherInfo(data) {
+            let lat = data[0].lat;
+            let long = data[0].lon;
+            locationName.innerText = data[0].display_name;
+            let weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=hourly,daily&appid=4d88d3e1c5203a9607563a61727364a2`;
+
+            fetch(weatherUrl).then(
+                function (response) {
+                    return response.json();
+                }
+            ).then(
+                function (data) {
+                    let tempText = data.current.temp - 273;
+                    temperature.innerText = Math.ceil(tempText);
+                    humidity.innerText = data.current.humidity;
+                    wind.innerText = data.current.wind_deg;
+                    let weatherMode = data.current.weather[0].description;
+                    let main = data.current.weather[0].main;
+                    temperatureDesc.innerText = weatherMode;
+                    let icon = data.current.weather[0].icon;
+                    weatherIcon.src = `http://openweathermap.org/img/wn/${icon}@2x.png`
+                    console.log(main);
+                    switch (main) {
+                        case 'Thunderstorm':
+                            console.log('oui')
+                            weatherInfoDiv.className = 'weather-info-div thunderstorm'
+                            break;
+                        case 'Drizzle':
+                            console.log('oui')
+                            weatherInfoDiv.className = 'weather-info-div drizzle'
+                            break;
+                        case 'Rain':
+                            console.log('oui')
+                            weatherInfoDiv.className = 'weather-info-div rainy'
+                            break;
+                        case 'Snow':
+                            console.log('oui')
+                            weatherInfoDiv.className = 'weather-info-div snow'
+                            break;
+                        case 'Clear':
+                            console.log('oui')
+                            weatherInfoDiv.className = 'weather-info-div clear'
+                            break;
+                        case 'Clouds':
+                            console.log('oui')
+                            weatherInfoDiv.className = 'weather-info-div clouds'
+                            break;
+
+                        default:
+                            break;
+                    }
+                    // if (main === 'Rain') {
+                    //     console.log('finally');
+                    // }
+
+
+                }
+            )
+
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let locationValue = locationInput.value;
+            name.innerHTML = nameInput.value;
+            weatherIntroDiv.style.display = 'none';
+            weatherInfoDiv.style.display = 'block';
+            weatherInfoDiv.style.transition = 'all .2s';
+            const locationCord = `https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=${locationValue}&format=json`;
+            // const locationCord2 = 'https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=' + locationValue + '&format=json';
+            fetch(locationCord).then(
+                function (response) {
+                    return response.json();
+                }
+            ).then(
+                function (data) {
+                    getWeatherInfo(data)
+                }
+            )
+        })
+        // https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=uyo&format=json
+        // https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly,daily&appid=4d88d3e1c5203a9607563a61727364a2
+    </script>
+</body>
+
+</html>
