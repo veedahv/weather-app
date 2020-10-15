@@ -31,7 +31,7 @@
             position: relative;
         }
 
-        .weather-info-div:before {
+        .clear:before {
             content: "";
             position: absolute;
             left: 0;
@@ -46,6 +46,15 @@
     z-index: 3;
 }
 
+.rain-img,
+.snow-img {
+            display: none;
+        }
+        .rainy .snow-img {
+            display: block;
+            opacity: 0.7;
+            z-index: 1;
+        }
         .thunderstorm {
             background: url('images/snow-bg.gif') center center/cover no-repeat;
             color: white;
@@ -57,7 +66,8 @@
         }
 
         .rainy {
-            background: url('images/sun-bg-mobile.jpg') center center/cover no-repeat;
+            background: url('images/rain-bg.gif') center center/cover no-repeat;
+            background-blend-mode: soft-light;
             color: white;
         }
 
@@ -67,7 +77,7 @@
         }
 
         .clear {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            background: url('images/sun-bg-mobile.gif') center center/cover no-repeat;
             color: white;
         }
 
@@ -87,7 +97,8 @@
         }
 
         .rainy {
-            background: url('images/rain-bg.jpg') center center/cover no-repeat;
+            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            background-blend-mode: soft-light;
             color: white;
         }
 
@@ -135,6 +146,8 @@
         </div>
     </section>
     <section class="weather-info-div">
+        <img src="images/rain-bg.jpg" class="w-100 h-100 rain-img position-absolute" alt="">
+        <img src="images/snow-bg.jpg" class="w-100 h-100 snow-img position-absolute" alt="">
         <div class="h-100 d-flex flex-column justify-content-between">
             <div class="container py-4">
                 <div class="d-flex justify-content-end">
