@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <title>Weather</title>
     <style>
         * {
@@ -20,7 +21,45 @@
 
         .weather-intro-div {
             height: 100vh;
-            background: url('images/background-image-for-weather-app.jpg') center center/cover no-repeat;
+            background: rgb(13, 127, 235);
+            color: white;
+        }
+
+        /* .weather-intro-div .weather-img {
+            display: block;
+            opacity: 0.9;
+        } */
+
+        .weather-intro-div div {
+            position: relative;
+            z-index: 3;
+        }
+
+        .weather-intro-div label,
+        .weather-intro-div input {
+            display: block;
+        }
+
+        .input-info {
+            border-radius: 5px;
+            border: none;
+        }
+
+        .input-info:focus {
+            outline: none;
+            box-shadow: 0 0 3px 0 blue;
+        }
+
+        .weather-intro-div .btn-check {
+            display: block;
+            background-color: #fff;
+            border: 1px solid black;
+        }
+
+        .weather-info-div .btn-check {
+            display: block;
+            background-color: #fff;
+            border: none;
         }
 
         .weather-info-div {
@@ -41,33 +80,40 @@
             background: rgba(0, 0, 0, .4);
         }
 
-.weather-info-div div {
-    position: relative;
-    z-index: 3;
-}
+        .weather-info-div div {
+            position: relative;
+            z-index: 3;
+        }
 
-.rain-img,
-.snow-img {
+        .rain-img,
+        .snow-img {
             display: none;
         }
-        .rainy .snow-img {
+
+        .rainy .rain-img {
             display: block;
-            opacity: 0.7;
+            opacity: 0.8;
             z-index: 1;
         }
+
+        .snow .snow-img {
+            display: block;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
         .thunderstorm {
             background: url('images/snow-bg.gif') center center/cover no-repeat;
             color: white;
         }
 
         .drizzle {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            background: url('images/rain-bg.gif') center center/cover no-repeat;
             color: white;
         }
 
         .rainy {
             background: url('images/rain-bg.gif') center center/cover no-repeat;
-            background-blend-mode: soft-light;
             color: white;
         }
 
@@ -77,71 +123,65 @@
         }
 
         .clear {
-            background: url('images/sun-bg-mobile.gif') center center/cover no-repeat;
+            background: url('images/sun-bg-mobile.jpg') center center/cover no-repeat;
             color: white;
         }
 
         .clouds {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            background: url('images/cloud-bg-mobile.jpg') center center/cover no-repeat;
             color: white;
         }
+
         @media (min-width: 568px) {
             .thunderstorm {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
-            color: white;
-        }
+                background: url('images/snow-bg.gif') center center/cover no-repeat;
+                color: white;
+            }
 
-        .drizzle {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
-            color: white;
-        }
+            .clear {
+                background: url('images/sun-bg.jpg') center center/cover no-repeat;
+                color: white;
+            }
 
-        .rainy {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
-            background-blend-mode: soft-light;
-            color: white;
-        }
-
-        .snow {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
-            color: white;
-        }
-
-        .clear {
-            background: url('images/sun-bg.gif') center center/cover no-repeat;
-            color: white;
-        }
-
-        .clouds {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
-            color: white;
-        }
+            .clouds {
+                background: url('images/cloud-bg.jpg') center center/cover no-repeat;
+                color: white;
+            }
         }
     </style>
 </head>
 
 <body>
-    <section class="weather-intro-div">
-        <div class="container py-5">
-            <div>
-                <h1>
-                    Check today's weather forecast.
-                </h1>
-            </div>
-            <div>
-                <form action="">
-                    <label for="name-input">
-                        <input type="text" name="name" id="name-input" placeholder="Input your name" value="vee">
-                    </label>
-                    <label for="location-input">
-                        Location:
-                        <input type="text" name="location" id="location-input" placeholder="Input your location"
-                            value="uyo">
-                    </label>
-                    <label for="submit">
-                        <input type="submit" value="Get Weather Info" class="btn btn-primary">
-                    </label>
-                </form>
+    <section class="weather-intro-div position-relative">
+        <img src="images/weather-bg.gif" class="w-100 h-100 weather-img position-absolute" alt="">
+        <div class="container py-5 h-100">
+            <div class="d-flex h-100 justify-content-center align-items-center">
+                <div>
+                    <div>
+                        <h1>
+                            Check today's weather forecast.
+                        </h1>
+                    </div>
+                    <div>
+                        <form action="">
+                            <div class="row">
+                                <label for="name-input" class="col-sm-6 py-2">
+                                    Your Name
+                                    <input type="text" class="input-info px-3 py-2 w-100" name="name" id="name-input"
+                                        placeholder="Input your name" value="vee">
+                                </label>
+                                <label for="location-input" class="col-sm-6 py-2">
+                                    Location:
+                                    <input type="text" class="input-info px-3 py-2 w-100" name="location"
+                                        id="location-input" placeholder="Input your location" value="uyo">
+                                </label>
+                            </div>
+                            <label for="submit" class="py-2">
+                                <input type="submit" value="Get Weather Info" class="btn px-3 py-2 btn-check mx-auto">
+                            </label>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -150,8 +190,10 @@
         <img src="images/snow-bg.jpg" class="w-100 h-100 snow-img position-absolute" alt="">
         <div class="h-100 d-flex flex-column justify-content-between">
             <div class="container py-4">
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-between py-3">
+                    <button id="back" class="btn px-3 py-2 btn-check">Back</button>
                     <p id="time"></p>
+
                 </div>
                 <div>
                     <h2>Hello, <span id="name"></span>.</h2>
@@ -159,19 +201,21 @@
                 </div>
                 <div>
                     <p id="location"></p>
-                    <div class="d-flex">
-                        <div>
-                            <p><span id="temperature"></span> &deg; C</p>
-                            <p id="temperature-desc"></p>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p><span id="temperature"></span> &deg; C</p>
+                                <p id="temperature-desc"></p>
+                            </div>
+                            <div>
+                                <img id="weather-icon" alt="">
+                            </div>
                         </div>
-                        <div>
-                            <img id="weather-icon" alt="">
+                        <div class="mr-5 pr-5">
+                            <p>Humidity: <span id="humidity" class="ml-2"></span></p>
+                            <p>Wind: <span id="wind" class="ml-2"></span></p>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <p>Humidity: <span id="humidity"></span></p>
-                    <p>Wind: <span id="wind"></span></p>
                 </div>
                 <div>
                     <p id="weather-note"></p>
@@ -197,6 +241,7 @@
             nameInput = get('name-input'),
             weatherIcon = get('weather-icon'),
             time = get('time'),
+            back = get('back'),
             locationInput = document.getElementById('location-input'),
             name = document.getElementById('name'),
             date = document.getElementById('date'),
@@ -209,9 +254,46 @@
         // http://openweathermap.org/img/wn/10d@2x.png
 
 
+        back.addEventListener('click', function (event) {
+            event.preventDefault()
+            weatherInfoDiv.style.display = 'none';
+            weatherIntroDiv.style.display = 'block';
+
+        })
         function repeat() {
             date.innerHTML = moment().format('MMMM Do YYYY');
             time.innerHTML = moment().format('h:mm:ss a');
+        }
+        function weatherType(mainData) {
+            switch (mainData) {
+                case 'Thunderstorm':
+                    console.log('oui')
+                    weatherInfoDiv.className = 'weather-info-div thunderstorm'
+                    break;
+                case 'Drizzle':
+                    console.log('oui')
+                    weatherInfoDiv.className = 'weather-info-div drizzle'
+                    break;
+                case 'Rain':
+                    console.log('oui')
+                    weatherInfoDiv.className = 'weather-info-div rainy'
+                    break;
+                case 'Snow':
+                    console.log('oui')
+                    weatherInfoDiv.className = 'weather-info-div snow'
+                    break;
+                case 'Clear':
+                    console.log('oui')
+                    weatherInfoDiv.className = 'weather-info-div clear'
+                    break;
+                case 'Clouds':
+                    console.log('oui')
+                    weatherInfoDiv.className = 'weather-info-div clouds'
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         // to keep running repeat func after 1s
@@ -239,53 +321,23 @@
                     let icon = data.current.weather[0].icon;
                     weatherIcon.src = `http://openweathermap.org/img/wn/${icon}@2x.png`
                     console.log(main);
-                    switch (main) {
-                        case 'Thunderstorm':
-                            console.log('oui')
-                            weatherInfoDiv.className = 'weather-info-div thunderstorm'
-                            break;
-                        case 'Drizzle':
-                            console.log('oui')
-                            weatherInfoDiv.className = 'weather-info-div drizzle'
-                            break;
-                        case 'Rain':
-                            console.log('oui')
-                            weatherInfoDiv.className = 'weather-info-div rainy'
-                            break;
-                        case 'Snow':
-                            console.log('oui')
-                            weatherInfoDiv.className = 'weather-info-div snow'
-                            break;
-                        case 'Clear':
-                            console.log('oui')
-                            weatherInfoDiv.className = 'weather-info-div clear'
-                            break;
-                        case 'Clouds':
-                            console.log('oui')
-                            weatherInfoDiv.className = 'weather-info-div clouds'
-                            break;
-
-                        default:
-                            break;
-                    }
-                    // if (main === 'Rain') {
-                    //     console.log('finally');
-                    // }
-
-
+                    weatherType(main);
                 }
             )
+            // .catch(function (error) {
+            //     console.log('error')
+            // })
 
         }
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+            console.log('working');
+
 
             let locationValue = locationInput.value;
             name.innerHTML = nameInput.value;
-            weatherIntroDiv.style.display = 'none';
-            weatherInfoDiv.style.display = 'block';
-            weatherInfoDiv.style.transition = 'all .2s';
+            // weatherInfoDiv.style.transition = 'all .2s';
             const locationCord = `https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=${locationValue}&format=json`;
             // const locationCord2 = 'https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=' + locationValue + '&format=json';
             fetch(locationCord).then(
@@ -294,7 +346,9 @@
                 }
             ).then(
                 function (data) {
-                    getWeatherInfo(data)
+                    getWeatherInfo(data);
+                    weatherIntroDiv.style.display = 'none';
+                    weatherInfoDiv.style.display = 'block';
                 }
             )
         })
