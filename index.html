@@ -18,12 +18,40 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+        .pre-loader-div {
+            height: 100vh;
+            border: 10px solid black;
+        }
+        .pre-loader {
+            width: 100px;
+            height: 100px;
+            border: 10px solid green;
+            border-top: 10px solid black;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
         .weather-intro-div {
             height: 100vh;
             background: rgb(13, 127, 235);
             color: white;
         }
+        dialog {
+            width: 250px;
+            border: none;
+        }
+        dialog .btn {
+            background-color: gray;
+            color: white;
+        }
+        dialog::backdrop {
+            background-color: gray;
+        }
+
 
         /* .weather-intro-div .weather-img {
             display: block;
@@ -53,7 +81,7 @@
         .weather-intro-div .btn-check {
             display: block;
             background-color: #fff;
-            border: 1px solid black;
+            border: none;
         }
 
         .weather-info-div .btn-check {
@@ -132,7 +160,30 @@
             color: white;
         }
 
+        @media (max-width: 568px) {
+        .weather-intro-div .input-info-label  {
+                display: flex;
+                flex-direction: row;
+            }
+        .weather-intro-div h1  {
+                font-size: 30px;
+            }
+        
+        }
         @media (min-width: 568px) {
+
+            .rainy .rain-img {
+                display: block;
+                opacity: 0.8;
+                z-index: 1;
+            }
+
+            .snow .snow-img {
+                display: block;
+                opacity: 0.6;
+                z-index: 1;
+            }
+
             .thunderstorm {
                 background: url('images/snow-bg.gif') center center/cover no-repeat;
                 color: white;
@@ -152,26 +203,38 @@
 </head>
 
 <body>
+    <!-- <div class="pre-loader-div w-100 d-flex justify-content-center align-items-center">
+        <div class="pre-loader"></div>
+    </div> -->
     <section class="weather-intro-div position-relative">
         <img src="images/weather-bg.gif" class="w-100 h-100 weather-img position-absolute" alt="">
         <div class="container py-5 h-100">
             <div class="d-flex h-100 justify-content-center align-items-center">
                 <div>
+                    <dialog id="favDialog" class="mx-auto py-4 text-center px-2">
+                        <form method="dialog">
+                          <p>
+                              Check your location & make sure you are connected to the internet.
+                          </p>
+                            <!-- <button value="cancel">Cancel</button> -->
+                            <button id="ok-btn" class="btn px-2 py-1 mx-auto" value="default">Ok</button>
+                        </form>
+                      </dialog>
                     <div>
-                        <h1>
+                        <h1 class="text-center">
                             Check today's weather forecast.
                         </h1>
                     </div>
                     <div>
-                        <form action="">
+                        <form class="form">
                             <div class="row">
-                                <label for="name-input" class="col-sm-6 py-2">
-                                    Your Name
+                                <label for="name-input" class="input-info-label align-items-center col-sm-6 py-2">
+                                    <p class="mr-2">Name</p>
                                     <input type="text" class="input-info px-3 py-2 w-100" name="name" id="name-input"
                                         placeholder="Input your name" value="vee">
                                 </label>
-                                <label for="location-input" class="col-sm-6 py-2">
-                                    Location:
+                                <label for="location-input" class="input-info-label align-items-center col-sm-6 py-2">
+                                    <p class="mr-2">Location:</p>
                                     <input type="text" class="input-info px-3 py-2 w-100" name="location"
                                         id="location-input" placeholder="Input your location" value="uyo">
                                 </label>
@@ -234,7 +297,8 @@
         function get(element) {
             return document.getElementById(element)
         }
-        const form = document.querySelector('form'),
+        const form = document.querySelector('.form'),
+        dialog = document.querySelector('dialog'),
             weatherIntroDiv = document.querySelector('.weather-intro-div'),
             weatherInfoDiv = document.querySelector('.weather-info-div'),
             // nameInput = document.getElementById('name-input'), 
@@ -242,6 +306,7 @@
             weatherIcon = get('weather-icon'),
             time = get('time'),
             back = get('back'),
+            okBtn = get('ok-btn'),
             locationInput = document.getElementById('location-input'),
             name = document.getElementById('name'),
             date = document.getElementById('date'),
@@ -263,6 +328,10 @@
         function repeat() {
             date.innerHTML = moment().format('MMMM Do YYYY');
             time.innerHTML = moment().format('h:mm:ss a');
+        }
+        function errorMsg() {
+            console.log('something not right');    
+            dialog.showModal();        
         }
         function weatherType(mainData) {
             switch (mainData) {
@@ -324,20 +393,12 @@
                     weatherType(main);
                 }
             )
-            // .catch(function (error) {
-            //     console.log('error')
-            // })
-
         }
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            console.log('working');
-
-
             let locationValue = locationInput.value;
             name.innerHTML = nameInput.value;
-            // weatherInfoDiv.style.transition = 'all .2s';
             const locationCord = `https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=${locationValue}&format=json`;
             // const locationCord2 = 'https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=' + locationValue + '&format=json';
             fetch(locationCord).then(
@@ -350,7 +411,9 @@
                     weatherIntroDiv.style.display = 'none';
                     weatherInfoDiv.style.display = 'block';
                 }
-            )
+            ).catch(function (error) {
+                errorMsg()
+            })
         })
         // https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=uyo&format=json
         // https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly,daily&appid=4d88d3e1c5203a9607563a61727364a2
