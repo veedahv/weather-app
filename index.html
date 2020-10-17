@@ -37,11 +37,11 @@
 
         .weather-intro-div {
             height: 100vh;
-            background: rgb(13, 127, 235);
+            background: rgb(207, 121, 8);
             color: white;
         }
         dialog {
-            width: 250px;
+            max-width: 300px;
             border: none;
         }
         dialog .btn {
@@ -49,7 +49,7 @@
             color: white;
         }
         dialog::backdrop {
-            background-color: gray;
+            background-color: rgba(153, 146, 146, 0.8);
         }
 
 
@@ -211,7 +211,7 @@
         <div class="container py-5 h-100">
             <div class="d-flex h-100 justify-content-center align-items-center">
                 <div>
-                    <dialog id="favDialog" class="mx-auto py-4 text-center px-2">
+                    <dialog id="favDialog" class="mx-auto py-4 text-center px-3">
                         <form method="dialog">
                           <p>
                               Check your location & make sure you are connected to the internet.
