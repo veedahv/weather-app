@@ -37,7 +37,8 @@
 
         .weather-intro-div {
             height: 100vh;
-            background: rgb(207, 121, 8);
+            background: url('images/bg-light-mobile.jpg') center center/cover no-repeat;
+            /* background: rgb(207, 121, 8); */
             color: white;
         }
         dialog {
@@ -98,7 +99,8 @@
             position: relative;
         }
 
-        .clear:before {
+        .clear:before,
+        .clouds:before {
             content: "";
             position: absolute;
             left: 0;
@@ -162,8 +164,6 @@
 
         @media (max-width: 568px) {
         .weather-intro-div .input-info-label  {
-                display: flex;
-                flex-direction: row;
             }
         .weather-intro-div h1  {
                 font-size: 30px;
@@ -171,6 +171,11 @@
         
         }
         @media (min-width: 568px) {
+            .weather-intro-div {
+            background: url('images/bg-light.jpg') center center/cover no-repeat;
+            /* background: rgb(207, 121, 8); */
+            color: white;
+        }
 
             .rainy .rain-img {
                 display: block;
@@ -207,7 +212,10 @@
         <div class="pre-loader"></div>
     </div> -->
     <section class="weather-intro-div position-relative">
-        <img src="images/weather-bg.gif" class="w-100 h-100 weather-img position-absolute" alt="">
+        <!-- <img src="images/weather-bg.gif" class="w-100 h-100 weather-img position-absolute" alt=""> -->
+        <!-- <div class="w-100 h-100 weather-img position-absolute">
+            <img src="gif/drizzle.gif" alt="">
+        </div> -->
         <div class="container py-5 h-100">
             <div class="d-flex h-100 justify-content-center align-items-center">
                 <div>
@@ -229,12 +237,12 @@
                         <form class="form">
                             <div class="row">
                                 <label for="name-input" class="input-info-label align-items-center col-sm-6 py-2">
-                                    <p class="mr-2">Name</p>
+                                    Name
                                     <input type="text" class="input-info px-3 py-2 w-100" name="name" id="name-input"
                                         placeholder="Input your name" value="vee">
                                 </label>
                                 <label for="location-input" class="input-info-label align-items-center col-sm-6 py-2">
-                                    <p class="mr-2">Location:</p>
+                                    Location:
                                     <input type="text" class="input-info px-3 py-2 w-100" name="location"
                                         id="location-input" placeholder="Input your location" value="uyo">
                                 </label>
