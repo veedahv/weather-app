@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="css/animay-icons.css">
     <title>Weather</title>
     <style>
         * {
@@ -18,10 +19,12 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+
         .pre-loader-div {
             height: 100vh;
             border: 10px solid black;
         }
+
         .pre-loader {
             width: 100px;
             height: 100px;
@@ -30,25 +33,39 @@
             border-radius: 50%;
             animation: spin 2s linear infinite;
         }
+
         @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
         .weather-intro-div {
             height: 100vh;
             background: url('images/bg-light-mobile.jpg') center center/cover no-repeat;
-            /* background: rgb(207, 121, 8); */
             color: white;
         }
+
+        /* .weather-intro-div {
+            height: 100vh;
+            background: url('images/bg-dark-mobile.jpg') center center/cover no-repeat;
+            color: white;
+        } */
+
         dialog {
             max-width: 300px;
             border: none;
         }
+
         dialog .btn {
             background-color: gray;
             color: white;
         }
+
         dialog::backdrop {
             background-color: rgba(153, 146, 146, 0.8);
         }
@@ -62,6 +79,10 @@
         .weather-intro-div div {
             position: relative;
             z-index: 3;
+        }
+
+        .weather-icon {
+            width: 70px;
         }
 
         .weather-intro-div label,
@@ -163,18 +184,26 @@
         }
 
         @media (max-width: 568px) {
-        .weather-intro-div .input-info-label  {
-            }
-        .weather-intro-div h1  {
+            .weather-intro-div .input-info-label {}
+
+            .weather-intro-div h1 {
                 font-size: 30px;
             }
-        
+
         }
+
         @media (min-width: 568px) {
             .weather-intro-div {
-            background: url('images/bg-light.jpg') center center/cover no-repeat;
-            /* background: rgb(207, 121, 8); */
-            color: white;
+                background: url('images/bg-light.jpg') center center/cover no-repeat;
+                color: white;
+            }
+
+            /* .weather-intro-div {
+                background: url('images/bg-dark.jpg') center center/cover no-repeat;
+                color: white;
+            } */
+            .weather-icon {
+            width: 120px;
         }
 
             .rainy .rain-img {
@@ -221,13 +250,58 @@
                 <div>
                     <dialog id="favDialog" class="mx-auto py-4 text-center px-3">
                         <form method="dialog">
-                          <p>
-                              Check your location & make sure you are connected to the internet.
-                          </p>
-                            <!-- <button value="cancel">Cancel</button> -->
+                            <p>
+                                Check your location & make sure you are connected to the internet.
+                            </p>
                             <button id="ok-btn" class="btn px-2 py-1 mx-auto" value="default">Ok</button>
                         </form>
-                      </dialog>
+                    </dialog>
+                    <div class="weather-icon-div d-flex justify-content-center mx-auto">
+                        <img src="gif/rain.gif" class="weather-icon" alt="">
+                        <img src="gif/cloud&sun.gif" class="weather-icon" alt="">
+                        <!-- <img src="gif/sun.gif" class="weather-icon" alt=""> -->
+                        <img src="gif/cloud&sun.gif" class="weather-icon" alt="">
+                        <img src="gif/cloud&sun.gif" class="weather-icon" alt="">
+                        <!-- <div class="icon sun-shower">
+                            <div class="cloud"></div>
+                            <div class="sun">
+                              <div class="rays"></div>
+                            </div>
+                            <div class="rain"></div>
+                          </div>
+                          
+                          <div class="icon thunder-storm">
+                            <div class="cloud"></div>
+                            <div class="lightning">
+                              <div class="bolt"></div>
+                              <div class="bolt"></div>
+                            </div>
+                          </div>
+                          
+                          <div class="icon cloudy">
+                            <div class="cloud"></div>
+                            <div class="cloud"></div>
+                          </div>
+                          
+                          <div class="icon flurries">
+                            <div class="cloud"></div>
+                            <div class="snow">
+                              <div class="flake"></div>
+                              <div class="flake"></div>
+                            </div>
+                          </div>
+                          
+                          <div class="icon sunny">
+                            <div class="sun">
+                              <div class="rays"></div>
+                            </div>
+                          </div>
+                          
+                          <div class="icon rainy">
+                            <div class="cloud"></div>
+                            <div class="rain"></div>
+                          </div> -->
+                    </div>
                     <div>
                         <h1 class="text-center">
                             Check today's weather forecast.
@@ -306,7 +380,7 @@
             return document.getElementById(element)
         }
         const form = document.querySelector('.form'),
-        dialog = document.querySelector('dialog'),
+            dialog = document.querySelector('dialog'),
             weatherIntroDiv = document.querySelector('.weather-intro-div'),
             weatherInfoDiv = document.querySelector('.weather-info-div'),
             // nameInput = document.getElementById('name-input'), 
@@ -338,8 +412,8 @@
             time.innerHTML = moment().format('h:mm:ss a');
         }
         function errorMsg() {
-            console.log('something not right');    
-            dialog.showModal();        
+            console.log('something not right');
+            dialog.showModal();
         }
         function weatherType(mainData) {
             switch (mainData) {
