@@ -120,6 +120,7 @@
             position: relative;
         }
 
+        .thunderstorm:before,
         .clearSun:before,
         .clearSky:before,
         .clouds:before {
@@ -155,12 +156,12 @@
         }
 
         .thunderstorm {
-            background: url('images/snow-bg.gif') center center/cover no-repeat;
+            background: url('images/thunder-bg-mobile.jpg') center center/cover no-repeat;
             color: white;
         }
 
         .drizzle {
-            background: url('images/rain-bg.gif') center center/cover no-repeat;
+            background: url('images/drizzle-bg-mobile.jpg') center center/cover no-repeat;
             color: white;
         }
 
@@ -224,9 +225,14 @@
             }
 
             .thunderstorm {
-                background: url('images/snow-bg.gif') center center/cover no-repeat;
+                background: url('images/thunder-bg.jpg') center center/cover no-repeat;
                 color: white;
             }
+
+.drizzle {
+    background: url('images/drizzle-bg-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
 
 .clearSun {
     background: url('images/sun-bg.jpg') center center/cover no-repeat;
@@ -259,8 +265,7 @@
                 <div>
                     <dialog id="favDialog" class="mx-auto py-4 text-center px-3">
                         <form method="dialog">
-                            <p>
-                                Check your location & make sure you are connected to the internet.
+                            <p id="dialog-note">
                             </p>
                             <button id="ok-btn" class="btn px-2 py-1 mx-auto" value="default">Ok</button>
                         </form>
@@ -268,48 +273,9 @@
                     <div class="weather-icon-div d-flex justify-content-center mx-auto">
                         <img src="gif/rain.gif" class="weather-icon" alt="">
                         <img src="gif/cloud&sun.gif" class="weather-icon" alt="">
-                        <!-- <img src="gif/sun.gif" class="weather-icon" alt=""> -->
-                        <img src="gif/cloud&sun.gif" class="weather-icon" alt="">
-                        <img src="gif/cloud&sun.gif" class="weather-icon" alt="">
-                        <!-- <div class="icon sun-shower">
-                            <div class="cloud"></div>
-                            <div class="sun">
-                              <div class="rays"></div>
-                            </div>
-                            <div class="rain"></div>
-                          </div>
-                          
-                          <div class="icon thunder-storm">
-                            <div class="cloud"></div>
-                            <div class="lightning">
-                              <div class="bolt"></div>
-                              <div class="bolt"></div>
-                            </div>
-                          </div>
-                          
-                          <div class="icon cloudy">
-                            <div class="cloud"></div>
-                            <div class="cloud"></div>
-                          </div>
-                          
-                          <div class="icon flurries">
-                            <div class="cloud"></div>
-                            <div class="snow">
-                              <div class="flake"></div>
-                              <div class="flake"></div>
-                            </div>
-                          </div>
-                          
-                          <div class="icon sunny">
-                            <div class="sun">
-                              <div class="rays"></div>
-                            </div>
-                          </div>
-                          
-                          <div class="icon rainy">
-                            <div class="cloud"></div>
-                            <div class="rain"></div>
-                          </div> -->
+                        <img src="gif/sun.gif" class="weather-icon" alt="">
+                        <!-- <img src="gif/cloud&sun.gif" class="weather-icon" alt=""> -->
+                        <img src="gif/thunder-cloud.gif" class="weather-icon" alt="">
                     </div>
                     <div>
                         <h1 class="text-center">
@@ -397,6 +363,7 @@
             weatherIcon = get('weather-icon'),
             time = get('time'),
             back = get('back'),
+            dialogNote = get('dialog-note'),
             okBtn = get('ok-btn'),
             locationInput = document.getElementById('location-input'),
             name = document.getElementById('name'),
@@ -420,8 +387,16 @@
             date.innerHTML = moment().format('MMMM Do YYYY');
             time.innerHTML = moment().format('h:mm:ss a');
         }
-        function errorMsg() {
+        function errorMsg(err) {
             console.log('something not right');
+            let re = /404/i;
+            let errTest = re.test(err);
+            dialogNote.innerText = 'oui';
+            if (errTest === true) {
+            dialogNote.innerText = 'Inpuut a correct location';
+            } else {
+            dialogNote.innerText = 'Check your location & make sure you are connected to the internet.';
+            }
             dialog.showModal();
         }
         function checkClear() {
@@ -498,7 +473,7 @@
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             let locationValue = locationInput.value;
-            name.innerHTML = nameInput.value;
+            name.innerText = nameInput.value;
             const locationCord = `https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=${locationValue}&format=json`;
             // const locationCord2 = 'https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=' + locationValue + '&format=json';
             fetch(locationCord).then(
@@ -512,7 +487,7 @@
                     weatherInfoDiv.style.display = 'block';
                 }
             ).catch(function (error) {
-                errorMsg()
+                errorMsg(error)
             })
         })
         // https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=uyo&format=json
