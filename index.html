@@ -120,7 +120,8 @@
             position: relative;
         }
 
-        .clear:before,
+        .clearSun:before,
+        .clearSky:before,
         .clouds:before {
             content: "";
             position: absolute;
@@ -173,8 +174,12 @@
             color: white;
         }
 
-        .clear {
+        .clearSun {
             background: url('images/sun-bg-mobile.jpg') center center/cover no-repeat;
+            color: white;
+        }
+        .clearSky {
+            background: url('images/sky-bg-mobile.jpg') center center/cover no-repeat;
             color: white;
         }
 
@@ -223,10 +228,14 @@
                 color: white;
             }
 
-            .clear {
-                background: url('images/sun-bg.jpg') center center/cover no-repeat;
-                color: white;
-            }
+.clearSun {
+    background: url('images/sun-bg.jpg') center center/cover no-repeat;
+    color: white;
+}
+.clearSky {
+    background: url('images/sky-bg.jpg') center center/cover no-repeat;
+    color: white;
+}
 
             .clouds {
                 background: url('images/cloud-bg.jpg') center center/cover no-repeat;
@@ -415,6 +424,14 @@
             console.log('something not right');
             dialog.showModal();
         }
+        function checkClear() {
+            console.log('working');
+            if (temperature.innerText >= 20) {
+                weatherInfoDiv.className = 'weather-info-div clearSun'
+            } else {
+                weatherInfoDiv.className = 'weather-info-div clearSky'
+            }
+        }
         function weatherType(mainData) {
             switch (mainData) {
                 case 'Thunderstorm':
@@ -435,7 +452,8 @@
                     break;
                 case 'Clear':
                     console.log('oui')
-                    weatherInfoDiv.className = 'weather-info-div clear'
+                    checkClear();
+                    // weatherInfoDiv.className = 'weather-info-div clear'
                     break;
                 case 'Clouds':
                     console.log('oui')
