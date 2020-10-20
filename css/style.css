@@ -1,0 +1,232 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.pre-loader-div {
+    height: 100vh;
+    border: 10px solid black;
+}
+
+.pre-loader {
+    width: 70px;
+    height: 70px;
+    border: 5px solid green;
+    border-top: 10px solid black;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.weather-intro-div {
+    height: 100vh;
+    background: url('../images/bg-light-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
+
+/* .weather-intro-div {
+    height: 100vh;
+    background: url('../images/bg-dark-mobile.jpg') center center/cover no-repeat;
+    color: white;
+} */
+
+dialog {
+    max-width: 300px;
+    border: none;
+}
+
+dialog .btn {
+    background-color: gray;
+    color: white;
+}
+
+dialog::backdrop {
+    background-color: rgba(153, 146, 146, 0.8);
+}
+
+.weather-intro-div div {
+    position: relative;
+    z-index: 3;
+}
+
+.weather-icon {
+    width: 70px;
+}
+
+.weather-intro-div label,
+.weather-intro-div input {
+    display: block;
+}
+
+.input-info {
+    border-radius: 5px;
+    border: none;
+}
+
+.input-info:focus {
+    outline: none;
+    box-shadow: 0 0 3px 0 blue;
+}
+
+.weather-intro-div .btn-check {
+    display: block;
+    background-color: #fff;
+    border: none;
+}
+
+.weather-info-div .btn-check {
+    display: block;
+    background-color: #fff;
+    border: none;
+}
+
+.weather-info-div {
+    height: 100vh;
+    display: none;
+    position: relative;
+}
+
+.thunderstorm:before,
+.clearSun:before,
+.clearSky:before,
+.clouds:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .4);
+}
+
+.weather-info-div div {
+    position: relative;
+    z-index: 3;
+}
+
+.rain-img,
+.snow-img {
+    display: none;
+}
+
+.rainy .rain-img {
+    display: block;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.snow .snow-img {
+    display: block;
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.thunderstorm {
+    background: url('../images/thunder-bg-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
+
+.drizzle {
+    background: url('../images/drizzle-bg-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
+
+.rainy {
+    background: url('../images/rain-bg.gif') center center/cover no-repeat;
+    color: white;
+}
+
+.snow {
+    background: url('../images/snow-bg.gif') center center/cover no-repeat;
+    color: white;
+}
+
+.clearSun {
+    background: url('../images/sun-bg-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
+
+.clearSky {
+    background: url('../images/sky-bg-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
+
+.clouds {
+    background: url('../images/cloud-bg-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
+
+@media (max-width: 568px) {
+    .weather-intro-div .input-info-label {}
+
+    .weather-intro-div h1 {
+        font-size: 30px;
+    }
+
+}
+
+@media (min-width: 568px) {
+    .weather-intro-div {
+        background: url('../../images/bg-light.jpg') center center/cover no-repeat;
+        color: white;
+    }
+
+    /* .weather-intro-div {
+        background: url('../../images/bg-dark.jpg') center center/cover no-repeat;
+        color: white;
+    } */
+    .weather-icon {
+        width: 120px;
+    }
+
+    .rainy .rain-img {
+        display: block;
+        opacity: 0.8;
+        z-index: 1;
+    }
+
+    .snow .snow-img {
+        display: block;
+        opacity: 0.6;
+        z-index: 1;
+    }
+
+    .thunderstorm {
+        background: url('../images/thunder-bg.jpg') center center/cover no-repeat;
+        color: white;
+    }
+
+    .drizzle {
+        background: url('../images/drizzle-bg-mobile.jpg') center center/cover no-repeat;
+        color: white;
+    }
+
+    .clearSun {
+        background: url('../images/sun-bg.jpg') center center/cover no-repeat;
+        color: white;
+    }
+
+    .clearSky {
+        background: url('../images/sky-bg.jpg') center center/cover no-repeat;
+        color: white;
+    }
+
+    .clouds {
+        background: url('../images/cloud-bg.jpg') center center/cover no-repeat;
+        color: white;
+    }
+}
