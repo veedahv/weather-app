@@ -388,14 +388,14 @@
             time.innerHTML = moment().format('h:mm:ss a');
         }
         function errorMsg(err) {
-            console.log('something not right');
-            let re = /404/i;
+            console.log(err);
+            let re = /undefined/i;
             let errTest = re.test(err);
-            dialogNote.innerText = 'oui';
-            if (errTest === true) {
-            dialogNote.innerText = 'Inpuut a correct location';
+            console.log(errTest);
+            if (errTest) {
+            dialogNote.innerText = 'Input a correct location';
             } else {
-            dialogNote.innerText = 'Check your location & make sure you are connected to the internet.';
+            dialogNote.innerText = 'Check your internet connection.';
             }
             dialog.showModal();
         }
@@ -451,6 +451,7 @@
 
             fetch(weatherUrl).then(
                 function (response) {
+                    console.log(response.status)
                     return response.json();
                 }
             ).then(
@@ -467,7 +468,10 @@
                     console.log(main);
                     weatherType(main);
                 }
-            )
+            ).catch(function (error) {
+                console.log(error)
+                errorMsg(error)
+            })
         }
 
         form.addEventListener('submit', function (event) {
@@ -487,6 +491,7 @@
                     weatherInfoDiv.style.display = 'block';
                 }
             ).catch(function (error) {
+                console.log(error)
                 errorMsg(error)
             })
         })
