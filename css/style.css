@@ -175,8 +175,8 @@ dialog::backdrop {
 @media (orientation: landscape) {
     .weather-info-div .container,
     .weather-intro-div .container {
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
     }
 }
 
