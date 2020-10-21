@@ -7,6 +7,7 @@ const form = document.querySelector('.form'),
     dialog = document.querySelector('dialog'),
     weatherIntroDiv = document.querySelector('.weather-intro-div'),
     weatherInfoDiv = document.querySelector('.weather-info-div'),
+    preloader = document.querySelector('.pre-loader-div'),
     nameInput = get('name-input'),
     weatherIcon = get('weather-icon'),
     time = get('time'),
@@ -111,6 +112,12 @@ const form = document.querySelector('.form'),
             errorMsg(error);
         })
     }
+    function preloadRemove() {
+        preloader.style.zIndex = '-5';
+    }
+    function preloadAdd() {
+        preloader.style.zIndex = '5';
+    }
     // to keep running repeat func after 1s
     setInterval(repeat, 1000);
 
@@ -123,8 +130,17 @@ const form = document.querySelector('.form'),
     })
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+        preloadAdd();
         let locationValue = locationInput.value;
-        name.innerText = nameInput.value;
+        nameInitial = nameInput.value;
+        nameFirstLetter = nameInitial.slice(0, 1).toUpperCase();
+        nameRest = nameInitial.slice(1, 7);
+        if (nameInput.value === '') {
+            name.innerText = 'Dear';
+        } else {
+            name.innerText = nameFirstLetter + nameRest;
+        }
+        console.log(name.innerText)
         const locationCord = `https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=${locationValue}&format=json`;
         // const locationCord2 = 'https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=' + locationValue + '&format=json';
         fetch(locationCord).then(
@@ -134,8 +150,12 @@ const form = document.querySelector('.form'),
         ).then(
             function (data) {
                 getLocationInfo(data);
-                weatherIntroDiv.style.display = 'none';
+                function changeDisplay() {
+                    weatherIntroDiv.style.display = 'none';
                 weatherInfoDiv.style.display = 'block';
+                preloadRemove();
+                }
+                setTimeout(changeDisplay, 1500)
             }
         ).catch(function (error) {
             console.log(error)

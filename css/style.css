@@ -9,15 +9,17 @@ body {
 }
 
 .pre-loader-div {
+    background-color: #ffffff;
+    z-index: -5;
     height: 100vh;
-    border: 10px solid black;
+    /* border: 10px solid black; */
 }
 
 .pre-loader {
     width: 70px;
     height: 70px;
-    border: 5px solid green;
-    border-top: 10px solid black;
+    border: 5px solid rgba(201, 198, 198, 0.5);
+    border-top: 5px solid rgba(89, 199, 243, 0.6);
     border-radius: 50%;
     animation: spin 2s linear infinite;
 }
@@ -79,7 +81,7 @@ dialog::backdrop {
 
 .input-info:focus {
     outline: none;
-    box-shadow: 0 0 3px 0 blue;
+    box-shadow: 0 0 3px 0 rgb(24, 24, 26);
 }
 
 .weather-intro-div .btn-check {
@@ -181,13 +183,11 @@ dialog::backdrop {
 
 @media (min-width: 568px) {
     .weather-intro-div {
-        background: url('../../images/bg-light.jpg') center center/cover no-repeat;
-        color: white;
+        background: url('../images/bg-light.jpg') center center/cover no-repeat;
     }
 
     /* .weather-intro-div {
-        background: url('../../images/bg-dark.jpg') center center/cover no-repeat;
-        color: white;
+        background: url('../images/bg-dark.jpg') center center/cover no-repeat;
     } */
     .weather-icon {
         width: 120px;
