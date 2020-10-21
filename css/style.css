@@ -171,6 +171,10 @@ dialog::backdrop {
     background: url('../images/cloud-bg-mobile.jpg') center center/cover no-repeat;
     color: white;
 }
+.default {
+    background: url('../images/default-bg-mobile.jpg') center center/cover no-repeat;
+    color: white;
+}
 
 @media (orientation: landscape) {
     .weather-info-div .container,
@@ -235,6 +239,10 @@ dialog::backdrop {
 
     .clouds {
         background: url('../images/cloud-bg.jpg') center center/cover no-repeat;
+        color: white;
+    }
+    .default {
+        background: url('../images/default-bg.jpg') center center/cover no-repeat;
         color: white;
     }
 }

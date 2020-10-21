@@ -33,7 +33,9 @@ const form = document.querySelector('.form'),
         let re = /undefined/i;
         let errTest = re.test(err);
         console.log(errTest);
-        if (errTest) {
+        if (locationInput.value === '') {
+            dialogNote.innerText = 'No location Inputed';
+        } else if (errTest) {
             dialogNote.innerText = 'Input a correct location';
         } else {
             dialogNote.innerText = 'Check your internet connection.';
@@ -77,6 +79,7 @@ const form = document.querySelector('.form'),
                 break;
 
             default:
+                weatherInfoDiv.className = 'weather-info-div default'
                 break;
         }
     }
@@ -130,6 +133,7 @@ const form = document.querySelector('.form'),
     })
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+        document.body.style.cursor = 'wait'
         let locationValue = locationInput.value;
         nameInitial = nameInput.value;
         nameFirstLetter = nameInitial.slice(0, 1).toUpperCase();
@@ -151,6 +155,7 @@ const form = document.querySelector('.form'),
                 getLocationInfo(data);
                 preloadAdd();
                 function changeDisplay() {
+                    document.body.style.cursor = 'initial'
                     weatherIntroDiv.style.display = 'none';
                 weatherInfoDiv.style.display = 'block';
                 preloadRemove();
