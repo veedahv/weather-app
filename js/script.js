@@ -130,13 +130,12 @@ const form = document.querySelector('.form'),
     })
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        preloadAdd();
         let locationValue = locationInput.value;
         nameInitial = nameInput.value;
         nameFirstLetter = nameInitial.slice(0, 1).toUpperCase();
         nameRest = nameInitial.slice(1, 7);
         if (nameInput.value === '') {
-            name.innerText = 'Dear';
+            name.innerText = 'dear';
         } else {
             name.innerText = nameFirstLetter + nameRest;
         }
@@ -150,6 +149,7 @@ const form = document.querySelector('.form'),
         ).then(
             function (data) {
                 getLocationInfo(data);
+                preloadAdd();
                 function changeDisplay() {
                     weatherIntroDiv.style.display = 'none';
                 weatherInfoDiv.style.display = 'block';
