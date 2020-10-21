@@ -38,6 +38,7 @@ body {
     height: 100vh;
     background: url('../images/bg-light-mobile.jpg') center center/cover no-repeat;
     color: white;
+    transition: background 2s ease-in;
 }
 
 /* .weather-intro-div {

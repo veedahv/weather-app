@@ -137,7 +137,7 @@ const form = document.querySelector('.form'),
         let locationValue = locationInput.value;
         nameInitial = nameInput.value;
         nameFirstLetter = nameInitial.slice(0, 1).toUpperCase();
-        nameRest = nameInitial.slice(1, 7);
+        nameRest = nameInitial.slice(1, 10).toLowerCase();
         if (nameInput.value === '') {
             name.innerText = 'dear';
         } else {
@@ -154,8 +154,9 @@ const form = document.querySelector('.form'),
             function (data) {
                 getLocationInfo(data);
                 preloadAdd();
+                document.body.style.cursor = 'none'
                 function changeDisplay() {
-                    document.body.style.cursor = 'initial'
+                    document.body.style.cursor = 'initial';
                     weatherIntroDiv.style.display = 'none';
                 weatherInfoDiv.style.display = 'block';
                 preloadRemove();
@@ -163,6 +164,7 @@ const form = document.querySelector('.form'),
                 setTimeout(changeDisplay, 1500)
             }
         ).catch(function (error) {
+            document.body.style.cursor = 'initial';
             console.log(error)
             errorMsg(error)
         })
