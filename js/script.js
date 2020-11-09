@@ -139,8 +139,10 @@ const form = document.querySelector('.form'),
     // eventlisteners
     back.addEventListener('click', function (event) {
         event.preventDefault()
+        preloadAdd();
         weatherInfoDiv.style.display = 'none';
         weatherIntroDiv.style.display = 'block';
+        setTimeout(preloadRemove, 500)
                 // location.href='index.html';
 
     })
@@ -176,8 +178,8 @@ const form = document.querySelector('.form'),
                 // preloadRemove();
                 }
                 changeDisplay();
-                name.innerText = '';
-                locationInput.innerText = '';
+                nameInput.value = '';
+                locationInput.value = '';
                 setTimeout(preloadRemove, 1000)
             }
         ).catch(function (error) {
