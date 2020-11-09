@@ -29,6 +29,15 @@ const form = document.querySelector('.form'),
         date.innerHTML = moment().format('MMMM Do YYYY');
         time.innerHTML = moment().format('h:mm:ss a');
     }
+    function preloadRemove() {
+        preloader.style.zIndex = '-5';
+        preloader.style.opacity = '0';
+    }
+    function preloadAdd() {
+        preloader.style.zIndex = '5';
+        preloader.style.opacity = '1';
+    }
+    setTimeout(preloadRemove, 1000)
     function errorMsg(err) {
         let re = /undefined/i;
         let errTest = re.test(err);
@@ -50,6 +59,14 @@ const form = document.querySelector('.form'),
             weatherInfoDiv.className = 'weather-info-div clearSky'
         }
     }
+    function checkRain() {
+        console.log('working');
+        if (temperature.innerText >= 25) {
+            weatherInfoDiv.className = 'weather-info-div clearSky'
+        } else {
+            weatherInfoDiv.className = 'weather-info-div rainy'
+        }
+    }
     function weatherType(mainData) {
         switch (mainData) {
             case 'Thunderstorm':
@@ -62,7 +79,8 @@ const form = document.querySelector('.form'),
                 break;
             case 'Rain':
                 console.log('oui')
-                weatherInfoDiv.className = 'weather-info-div rainy'
+                checkRain()
+                // weatherInfoDiv.className = 'weather-info-div rainy'
                 break;
             case 'Snow':
                 console.log('oui')
@@ -115,12 +133,6 @@ const form = document.querySelector('.form'),
             errorMsg(error);
         })
     }
-    function preloadRemove() {
-        preloader.style.zIndex = '-5';
-    }
-    function preloadAdd() {
-        preloader.style.zIndex = '5';
-    }
     // to keep running repeat func after 1s
     setInterval(repeat, 1000);
 
@@ -129,6 +141,7 @@ const form = document.querySelector('.form'),
         event.preventDefault()
         weatherInfoDiv.style.display = 'none';
         weatherIntroDiv.style.display = 'block';
+                // location.href='index.html';
 
     })
     form.addEventListener('submit', function (event) {
@@ -139,13 +152,14 @@ const form = document.querySelector('.form'),
         nameFirstLetter = nameInitial.slice(0, 1).toUpperCase();
         nameRest = nameInitial.slice(1, 10).toLowerCase();
         if (nameInput.value === '') {
-            name.innerText = 'dear';
+            name.innerText = 'Dear';
         } else {
             name.innerText = nameFirstLetter + nameRest;
         }
         console.log(name.innerText)
         const locationCord = `https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=${locationValue}&format=json`;
         // const locationCord2 = 'https://us1.locationiq.com/v1/search.php?key=pk.251ea510fb4602dd7e4f6100d02f729e&q=' + locationValue + '&format=json';
+        preloadAdd();
         fetch(locationCord).then(
             function (response) {
                 return response.json();
@@ -153,17 +167,21 @@ const form = document.querySelector('.form'),
         ).then(
             function (data) {
                 getLocationInfo(data);
-                preloadAdd();
                 document.body.style.cursor = 'none'
                 function changeDisplay() {
                     document.body.style.cursor = 'initial';
                     weatherIntroDiv.style.display = 'none';
                 weatherInfoDiv.style.display = 'block';
-                preloadRemove();
+                // location.href='weather.html';
+                // preloadRemove();
                 }
-                setTimeout(changeDisplay, 1500)
+                changeDisplay();
+                name.innerText = '';
+                locationInput.innerText = '';
+                setTimeout(preloadRemove, 1000)
             }
         ).catch(function (error) {
+            setTimeout(preloadRemove, 50)
             document.body.style.cursor = 'initial';
             console.log(error)
             errorMsg(error)

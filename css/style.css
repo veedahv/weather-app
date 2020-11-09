@@ -10,9 +10,9 @@ body {
 
 .pre-loader-div {
     background-color: #ffffff;
-    z-index: -5;
+    z-index: 5;
+    opacity: 1;
     height: 100vh;
-    /* border: 10px solid black; */
 }
 
 .pre-loader {
